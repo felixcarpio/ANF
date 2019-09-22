@@ -1,0 +1,138 @@
+ {% extends 'base.html' %}
+
+  {% block title %}
+  <title>Kardex</title>
+  {% endblock title %}
+
+{% block content %}
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <a class="navbar-brand" href="/index/">Sistema de contabilidad</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Inicio">
+          <a class="nav-link" href="/index/">
+            <i class="fa fa-fw fa-home"></i>
+            <span class="nav-link-text">Inicio</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Periodos contables">
+          <a class="nav-link" href="/periodoConta/">
+            <i class="fa fa-fw fa-calendar"></i>
+            <span class="nav-link-text">Periodos contables</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Catalogo de cuentas">
+          <a class="nav-link" href="/catalogo/" >
+            <i class="fa fa-fw fa-files-o"></i>
+            <span class="nav-link-text">Catalogo de cuentas</span>
+          </a>
+        </li>
+      </ul>
+      <ul class="navbar-nav sidenav-toggler">
+        <li class="nav-item">
+          <a class="nav-link text-center" id="sidenavToggler">
+            <i class="fa fa-fw fa-angle-left"></i>
+          </a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+      {% if user == True %}
+      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Periodos contables">
+          <a class="nav-link" href="/signup/">
+            <i class="fa fa-fw fa-user-plus"></i>
+            <span class="nav-link-text">Registrar Usuario</span>
+          </a>
+        </li>
+      {% endif %}
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="/settings/">
+            <i class="fa fa-fw fa-edit"></i>Editar Perfil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="/logout/">
+            <i class="fa fa-fw fa-sign-out"></i>Cerrar Sesion</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- Contenido de la pagina -->
+  <div class="content-wrapper">
+    <div class="container-fluid">
+      <!-- Breadcrumbs -->
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+         <a href="/index">Inicio</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="/periodoConta">Periodo Contable</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="/menu/{{periodoId}}">Menu</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="/contabilidadCostos/{{periodoId}}">Contabilidad de costos</a>
+        </li>
+        <li class="breadcrumb-item active">Kardex</li>
+      </ol>
+      <!-- Carta de contenido -->
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fa fa-list"></i> Kardex 
+        </div>
+        <div class="card-body container">
+          <table class="table" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+              <th>Materia prima</th>
+              <th>Kardex</th>
+            </thead>
+            <tbody>
+              <tr>
+                {% for mp in materia %}
+                <td>{{mp.nombreMateriaPrima}}</td>
+                <td><a href="/detallesKardex/{{mp.id}}/{{periodoId}}">Ver Detalles</a></td>
+              </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  <!-- /.content-wrapper-->
+    <footer class="sticky-footer">
+      <div class="container">
+        <div class="text-center">
+          <small>Univerisdad de El Salvador. 2017</small>
+        </div>
+      </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-primary" href="login.html">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+{% endblock content %}
+</html>
