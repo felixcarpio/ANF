@@ -1007,6 +1007,7 @@ def prodTerminado(request,ordenId,periodoId):
 	print(periodoId)
 	return render(request, 'contables/gestionProdTerminado.html',{'periodoId':periodoId,'prod':producto,'ord':orden,'pan':pan})
 
+
 @login_required
 def asignarPlanilla(request,empleadoId,periodoId):
 	porcentaje_afp=float(0.0675)
