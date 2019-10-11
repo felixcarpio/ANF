@@ -74,18 +74,26 @@ WSGI_APPLICATION = 'ProyectoSic.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+# https://docs.djangoproject.com/en/1.11/ref/settings/#databases 
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'contables_db',
-        'USER': 'root',
-        'PASSWORD':'',
-        'HOST': 'localhost',
-        'PORT': 3306,
     }
 }
+
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': 'contables_db',
+#        'USER': 'root',
+#        'PASSWORD':'',
+#        'HOST': 'localhost',
+#        'PORT': 3306,
+#    }
+#}
 
 
 # Password validation
