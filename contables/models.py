@@ -9,8 +9,8 @@ class PeriodoContable(models.Model):
 	fechaInicio = models.DateField('Fecha de inicio', help_text='Formato: AAAA/MM/DD', blank=False, null=False)
 	fechaFin = models.DateField('Fecha de Fin', help_text='Formato: AAAA/MM/DD', blank=False, null=False)
 	estadoPeriodo= models.NullBooleanField(null = True);
-	def __str__(self):
-		return '{}{}'.format(self.fechaInicio,' hasta el ', self. fechaFin)
+	# def __str__(self):
+	# 	return '{}{}'.format(self.fechaInicio,' hasta el ', self. fechaFin)
 
 class Transaccion(models.Model):
 	id_Transaccion= models.AutoField(primary_key=True)
@@ -21,7 +21,7 @@ class Transaccion(models.Model):
 	def __str__(self):
 		return '{}{}'.format(self.id_Transaccion,self.descripcion, self.fecha,self.id_periodoContable)
 
-		
+
 class Cuenta(models.Model):
 	id = models.AutoField(primary_key=True)
 	codigo = models.IntegerField()
@@ -50,7 +50,7 @@ class Cuenta(models.Model):
 class detalleTransaccion(models.Model):
 	id_detalle = models.AutoField(primary_key = True)
 	debe = models.DecimalField('debe', max_digits=50, decimal_places=2, blank=False, null=True, validators=[MinValueValidator(0)])
-	haber = models.DecimalField('haber', max_digits=50, decimal_places=2, blank=False, null=True, validators=[MinValueValidator(0)])  
+	haber = models.DecimalField('haber', max_digits=50, decimal_places=2, blank=False, null=True, validators=[MinValueValidator(0)])
 	id_Transaccion = models.ForeignKey(Transaccion, null=True, blank=True,on_delete= models.CASCADE)
 	id_cuenta = models.ForeignKey(Cuenta, null=True, blank=True, on_delete=models.CASCADE)
 	def __str__(self):
@@ -60,6 +60,7 @@ class estadoComprobacion(models.Model):
 	id= models.AutoField(primary_key=True)
 	debe =models.DecimalField('debe', max_digits=50, decimal_places=2, blank=False, null=True, validators=[MinValueValidator(0)])
 	haber= models.DecimalField('haber', max_digits=50, decimal_places=2, blank=False, null=True, validators=[MinValueValidator(0)])
+	#periodoContable_id = models.ForeignKey(PeriodoContable, null=True, blank=True,on_delete= models.CASCADE)
 
 class estadoResulta(models.Model):
 	id=models.AutoField(primary_key=True)
@@ -160,7 +161,7 @@ class Orden(models.Model):
 	CMP=models.DecimalField('haber', max_digits=50, decimal_places=2, blank=False, null=True, validators=[MinValueValidator(0)])
 	terminado= models.NullBooleanField(null = False);
 
-	
+
 class materialUtilizado(models.Model):
 	id=models.AutoField(primary_key=True)
 	orden=models.ForeignKey(Orden, null=True, blank=True, on_delete=models.CASCADE)
@@ -181,4 +182,3 @@ class empleadosXorden(models.Model):
 	dui= models.ForeignKey(Empleado, null=True, blank=True, on_delete=models.CASCADE)
 	def __str__(self):
 		return '{}'.format(self.dui)
-

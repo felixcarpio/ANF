@@ -12,10 +12,10 @@ from .models import Empleado,planillaGeneral,Pan,MateriaPrima,CIF,Final,Kardex,E
 import datetime
 import decimal
 # Create your views here.
-@login_required
-def index(request):
-	userId=request.user.is_admin
-	return render(request, 'contables/index.html', {'user':userId})
+# @login_required
+# def index(request):
+# 	userId=request.user.is_admin
+# 	return render(request, 'contables/index.html', {'user':userId})
 
 @login_required
 def periodoConta(request):
@@ -33,33 +33,33 @@ def periodoConta(request):
 		for periodos in periodo:
 			if periodos.estadoPeriodo == True:
 				cantidad= int(cantidad)+1
-				
+
 	periodo = PeriodoContable.objects.all()
 
 	return render(request, 'contables/periodoContable.html',{'periodoCont':periodo,'cant':cantidad})
 
-@login_required
-def nuevoPeriodo(request):
-		if request.method == 'POST':
-			PeriodoContable.objects.create(
-				fechaInicio=request.POST['fechaIni'],
-				fechaFin=request.POST['fechaFin'],
-				estadoPeriodo=True
-			)
-			bal = estadoComprobacion.objects.get(id=1)
-			bal.debe=0.00
-			bal.haber= 0.00
-			bal.save()
-			cuenta = Cuenta.objects.all()
-			for cuentas in cuenta:
-				cuentaParcial=Cuenta.objects.get(id=cuentas.id)
-				cuentaParcial.saldoAcreedor=0.00
-				cuentaParcial.saldoDeudor=0.00
-				cuentaParcial.debe=0.00
-				cuentaParcial.haber=0.00
-				cuentaParcial.save()
-			return HttpResponse('No se almacenaron los datos')
-		return render(request, 'contables/nuevoPeriodo.html')
+# @login_required
+# def nuevoPeriodo(request):
+# 		if request.method == 'POST':
+# 			PeriodoContable.objects.create(
+# 				fechaInicio=request.POST['fechaIni'],
+# 				fechaFin=request.POST['fechaFin'],
+# 				estadoPeriodo=True
+# 			)
+# 			bal = estadoComprobacion.objects.get(id=1)
+# 			bal.debe=0.00
+# 			bal.haber= 0.00
+# 			bal.save()
+# 			cuenta = Cuenta.objects.all()
+# 			for cuentas in cuenta:
+# 				cuentaParcial=Cuenta.objects.get(id=cuentas.id)
+# 				cuentaParcial.saldoAcreedor=0.00
+# 				cuentaParcial.saldoDeudor=0.00
+# 				cuentaParcial.debe=0.00
+# 				cuentaParcial.haber=0.00
+# 				cuentaParcial.save()
+# 			return HttpResponse('No se almacenaron los datos')
+# 		return render(request, 'contables/nuevoPeriodo.html')
 
 @login_required
 def manejoTransaccion(request, periodoId):
@@ -104,33 +104,33 @@ def detallesTransaccion(request,periodoId,transaccionId):
 	periodo=periodoId
 	trans=transaccionId
 	cuentas=Cuenta.objects.all()
-	
+
 	if request.method == 'POST':
 		if request.POST['cuentaId1'] != request.POST['cuentaId2']:
 			if request.POST['monto1'] == request.POST['monto2']:
 				for x in xrange(0,2):
 						if x == 0:
 							detalleTransaccion.objects.create(
-								debe =request.POST.get('monto'+str(x+1)), 
+								debe =request.POST.get('monto'+str(x+1)),
 								haber = 0.00,
 								id_Transaccion =Transaccion.objects.get(id_Transaccion=request.POST['idtrans'+str(x+1)]) ,
 								id_cuenta =Cuenta.objects.get(id=request.POST['cuentaId'+str(x+1)]),
 								)
-							cuentaActualizar = Cuenta.objects.get(id=request.POST['cuentaId'+str(x+1)])	
+							cuentaActualizar = Cuenta.objects.get(id=request.POST['cuentaId'+str(x+1)])
 							debeac = cuentaActualizar.getDebe()
-							cuentaActualizar.debe=float(debeac)+float(request.POST['monto'+str(x+1)])					
+							cuentaActualizar.debe=float(debeac)+float(request.POST['monto'+str(x+1)])
 							cuentaActualizar.save()
 						else:
 							if x == 1:
 								detalleTransaccion.objects.create(
 								debe = 0.00,
-								haber =request.POST.get('monto'+str(x+1)), 
+								haber =request.POST.get('monto'+str(x+1)),
 								id_Transaccion =Transaccion.objects.get(id_Transaccion=request.POST['idtrans'+str(x+1)]) ,
 								id_cuenta =Cuenta.objects.get(id=request.POST['cuentaId'+str(x+1)]),
 								)
-							cuentaActualizar2 = Cuenta.objects.get(id=request.POST['cuentaId'+str(x+1)])	
+							cuentaActualizar2 = Cuenta.objects.get(id=request.POST['cuentaId'+str(x+1)])
 							haberac = cuentaActualizar2.getHaber()
-							cuentaActualizar2.haber=float(haberac)+float(request.POST['monto'+str(x+1)])					
+							cuentaActualizar2.haber=float(haberac)+float(request.POST['monto'+str(x+1)])
 							cuentaActualizar2.save()
 	return render(request, 'contables/detalleTransaccion.html',{'periodoId':periodo,'transaccionId':trans,'cuenta':cuentas})
 
@@ -139,60 +139,61 @@ def generadorEstados(request,periodoId):
 	periodo= periodoId
 	return render(request,'contables/generadorEstados.html',{'periodoId':periodo})
 
-@login_required
-def balancesComprobacion(request,periodoId):
-	detalles = detalleTransaccion.objects.all()
-	transaccion = Transaccion.objects.filter(id_periodoContable=periodoId)
-	cuentas=Cuenta.objects.all()
-	haberParcial = float(0.00)
-	debeParcial = float(0.00)
-	sumaHaber=float(0.00)
-	sumaDebe=float(0.00)
-	
-
-	for cuenta in cuentas:
-		cuentaSet=Cuenta.objects.get(id=cuenta.id)
-		cuentaSet.saldoAcreedor=0.00
-		cuentaSet.saldoDeudor=0.00
-		cuentaSet.save()
-		bal=estadoComprobacion.objects.get(id=int(1))
-		bal.debe=float(0.00)
-		bal.haber=float(0.00)
-		bal.save()
-
-	for cuenta in cuentas:
-		bal=estadoComprobacion.objects.get(id=int(1))
-		cuentaParcial=Cuenta.objects.get(id=cuenta.id)
-		for transacciones in transaccion:
-			for detalle in detalles:
-				if detalle.id_cuenta_id == cuenta.id:
-					if detalle.id_Transaccion_id == transacciones.id_Transaccion:
-						haberParcial=float(haberParcial) + float(detalle.haber)
-						debeParcial=float(debeParcial) + float(detalle.debe)
-		if haberParcial > debeParcial:
-			cuentaParcial.saldoAcreedor=float(haberParcial)-float(debeParcial)
-			cuentaParcial.save()
-			bal.haber=float(bal.haber)+float(cuentaParcial.saldoAcreedor)
-			bal.save()
-		if debeParcial > haberParcial:
-			cuentaParcial.saldoDeudor=float(debeParcial)-float(haberParcial)
-			cuentaParcial.save()
-			bal.debe=float(bal.debe)+float(cuentaParcial.saldoDeudor)
-			bal.save()
-		if debeParcial == haberParcial:
-			cuentaParcial.saldoAcreedor=0.00
-			cuentaParcial.saldoDeudor=0.00
-			cuentaParcial.save()
-			bal.debe=float(bal.debe)+float(cuentaParcial.saldoDeudor)
-			bal.haber=float(bal.haber)+float(cuentaParcial.saldoAcreedor)
-			bal.save()
-		haberParcial=0.00
-		debeParcial=0.00
-
-	balanceC= estadoComprobacion.objects.all()
-	transaccion = Transaccion.objects.filter(id_periodoContable=periodoId)
-	cuentas=Cuenta.objects.all()	
-	return render(request, 'contables/balanceComprobacion.html',{'cuenta':cuentas,'estados':balanceC,'periodoId':periodoId})
+# @login_required
+# def balancesComprobacion(request,periodoId):
+# 	detalles = detalleTransaccion.objects.all()
+# 	transaccion = Transaccion.objects.filter(id_periodoContable=periodoId)
+# 	cuentas=Cuenta.objects.all()
+# 	haberParcial = float(0.00)
+# 	debeParcial = float(0.00)
+# 	sumaHaber=float(0.00)
+# 	sumaDebe=float(0.00)
+#
+#
+# 	for cuenta in cuentas:
+# 		cuentaSet=Cuenta.objects.get(id=cuenta.id)
+# 		cuentaSet.saldoAcreedor=0.00
+# 		cuentaSet.saldoDeudor=0.00
+# 		cuentaSet.save()
+# 		bal=estadoComprobacion.objects.latest('id')
+# 		print 'aqui------------- {0}'.format(bal)
+# 		bal.debe=float(0.00)
+# 		bal.haber=float(0.00)
+# 		bal.save()
+#
+# 	for cuenta in cuentas:
+# 		bal=estadoComprobacion.objects.get(id=int(1))
+# 		cuentaParcial=Cuenta.objects.get(id=cuenta.id)
+# 		for transacciones in transaccion:
+# 			for detalle in detalles:
+# 				if detalle.id_cuenta_id == cuenta.id:
+# 					if detalle.id_Transaccion_id == transacciones.id_Transaccion:
+# 						haberParcial=float(haberParcial) + float(detalle.haber)
+# 						debeParcial=float(debeParcial) + float(detalle.debe)
+# 		if haberParcial > debeParcial:
+# 			cuentaParcial.saldoAcreedor=float(haberParcial)-float(debeParcial)
+# 			cuentaParcial.save()
+# 			bal.haber=float(bal.haber)+float(cuentaParcial.saldoAcreedor)
+# 			bal.save()
+# 		if debeParcial > haberParcial:
+# 			cuentaParcial.saldoDeudor=float(debeParcial)-float(haberParcial)
+# 			cuentaParcial.save()
+# 			bal.debe=float(bal.debe)+float(cuentaParcial.saldoDeudor)
+# 			bal.save()
+# 		if debeParcial == haberParcial:
+# 			cuentaParcial.saldoAcreedor=0.00
+# 			cuentaParcial.saldoDeudor=0.00
+# 			cuentaParcial.save()
+# 			bal.debe=float(bal.debe)+float(cuentaParcial.saldoDeudor)
+# 			bal.haber=float(bal.haber)+float(cuentaParcial.saldoAcreedor)
+# 			bal.save()
+# 		haberParcial=0.00
+# 		debeParcial=0.00
+#
+# 	balanceC= estadoComprobacion.objects.all()
+# 	transaccion = Transaccion.objects.filter(id_periodoContable=periodoId)
+# 	cuentas=Cuenta.objects.all()
+# 	return render(request, 'contables/balanceComprobacion.html',{'cuenta':cuentas,'estados':balanceC,'periodoId':periodoId})
 
 @login_required
 def estadosResultado(request,periodoId):
@@ -240,7 +241,7 @@ def estadosResultado(request,periodoId):
 		estadoRes.utilidades=float(estadoRes.utilidades)+float(cuentaParcial.saldoAcreedor)
 		estadoRes.save()
 		haberParcial=0.00
-		
+
 
 	for cuenta in cuentasResultadoDeudor:
 		cuentaParcial = Cuenta.objects.get(id=cuenta.id)
@@ -357,7 +358,7 @@ def estadoCapita(request,periodoId):
 	estadoCapi.capitalContable=float(0.00)
 	estadoCapi.UtilidadRetenida=float(0.00)
 	estadoCapi.save()
-
+	estadoRes = estadoResulta.objects.get(id=1)
 	for cuenta in inversiones:
 		cuentaSet=Cuenta.objects.get(id=cuenta.id)
 		cuentaSet.saldoDeudor=0.00
@@ -476,7 +477,7 @@ def balanceGral(request,periodoId):
 			print(haberParcial)
 			print(debeParcial)
 			cuentaParcial.saldoDeudor=float(debeParcial)-float(haberParcial)
-			cuentaParcial.save()			
+			cuentaParcial.save()
 			estadoG.debe=float(estadoG.debe)+float(cuentaParcial.saldoDeudor)
 			estadoG.save()
 			print(estadoG.debe)
@@ -508,7 +509,7 @@ def balanceGral(request,periodoId):
 			print(haberParcial)
 			print(debeParcial)
 			cuentaParcial.saldoDeudor=float(debeParcial)-float(haberParcial)
-			cuentaParcial.save()			
+			cuentaParcial.save()
 			estadoG.debe=float(estadoG.debe)+float(cuentaParcial.saldoDeudor)
 			estadoG.save()
 			print(estadoG.debe)
@@ -521,7 +522,7 @@ def balanceGral(request,periodoId):
 			estadoG.save()
 		haberParcial=0.00
 		debeParcial=0.00
-	
+
 	estadoG.haber=float(estadoG.haber)+ float(estadoCapi.capitalContable)+float(estadoCapi.UtilidadRetenida)
 	estadoG.save()
 
@@ -649,7 +650,7 @@ def manejoOrden(request,periodoId):
 @login_required
 def compraMateriaPrima(request,periodoId):
 	mp=MateriaPrima.objects.all()
-	
+
 	if request.method == 'POST':
 		final=Final.objects.filter(kardex_id=request.POST.get('productoId'),es_Actual=True)
 		tamano=len(final)
@@ -688,18 +689,18 @@ def compraMateriaPrima(request,periodoId):
 				debe =float(0.00),
 				id_Transaccion =Transaccion.objects.get(id_Transaccion=transaccion.id_Transaccion),
 				id_cuenta= Cuenta.objects.get(codigo=20101),
-				)			
+				)
 			detalleTransaccion.objects.create(
 				debe = (float(request.POST['preciUnit'])*float(request.POST['cantidadMP'])),
 				haber =0.00,
 				id_Transaccion =Transaccion.objects.get(id_Transaccion=transaccion.id_Transaccion),
 				id_cuenta =Cuenta.objects.get(codigo=10141),
-				)	
+				)
 			decimal.getcontext().rounding = decimal.ROUND_DOWN
 			aux=decimal.Decimal( (float(request.POST['preciUnit'])*float(request.POST['cantidadMP']))*0.13)
 			auxTruncado=round(aux,2)
 			detalleTransaccion.objects.create(
-				debe = auxTruncado, 
+				debe = auxTruncado,
 				haber =0.00,
 				id_Transaccion =Transaccion.objects.get(id_Transaccion=transaccion.id_Transaccion),
 				id_cuenta =Cuenta.objects.get(codigo=10137),
@@ -718,13 +719,13 @@ def compraMateriaPrima(request,periodoId):
 				debe =float(0.00),
 				id_Transaccion =Transaccion.objects.get(id_Transaccion=transaccion.id_Transaccion),
 				id_cuenta= Cuenta.objects.get(codigo=10102),
-				)			
+				)
 			detalleTransaccion.objects.create(
 				debe = (float(request.POST['preciUnit'])*float(request.POST['cantidadMP'])),
 				haber =0.00,
 				id_Transaccion =Transaccion.objects.get(id_Transaccion=transaccion.id_Transaccion),
 				id_cuenta =Cuenta.objects.get(codigo=10141),
-				)	
+				)
 			decimal.getcontext().rounding = decimal.ROUND_DOWN
 			aux=decimal.Decimal( (float(request.POST['preciUnit'])*float(request.POST['cantidadMP']))*0.13)
 			auxTruncado=round(aux,2)
@@ -735,7 +736,7 @@ def compraMateriaPrima(request,periodoId):
 				id_cuenta =Cuenta.objects.get(codigo=10137),
 				)
 
-		
+
 		if tamano == 0:
 			Final.objects.create(
 				kardex=Kardex.objects.get(materiaPrima=request.POST['productoId']),
@@ -814,7 +815,7 @@ def crearOrd(request,periodoId):
 			CMP=0.0
 			)
 
-	
+
 	return render(request, 'contables/crearOrden.html',{'periodoId':periodoId,'tipoPan':x,'cif':cif})
 
 @login_required
@@ -834,10 +835,10 @@ def gestionOrden(request,ordenId,periodoId):
 def asignarMP(request,ordenId,periodoId):
 
 	mp=MateriaPrima.objects.all()
-	
+
 	if request.method == 'POST':
 		final=Final.objects.filter(kardex_id=request.POST.get('productoId'),es_Actual=True)
-		tamano=len(final)		
+		tamano=len(final)
 		print(tamano)
 		if tamano != 0:
 			cantidadAux=int(0)
@@ -849,7 +850,7 @@ def asignarMP(request,ordenId,periodoId):
 				costoUnitario=float(final.costoUnitarioFinal)
 				costoTotal=float(cantidadAux)*float(costoUnitario)
 				final.es_Actual=False
-				final.save()	
+				final.save()
 			Salida.objects.create(
 				kardex=Kardex.objects.get(materiaPrima=request.POST['productoId']),
 				fechaSalida= request.POST['fechaSalida'],
@@ -922,14 +923,14 @@ def prodTerminado(request,ordenId,periodoId):
 				haber =float(0.00),
 				id_Transaccion =Transaccion.objects.get(id_Transaccion=transaccion.id_Transaccion),
 				id_cuenta= Cuenta.objects.get(codigo=10107),
-				)	
-			#Afecta cuenta venta de panaderia (Resultado)		
+				)
+			#Afecta cuenta venta de panaderia (Resultado)
 			detalleTransaccion.objects.create(
 				haber = float(producto.precioVenta)*float(producto.cantidadProducto),
 				debe =0.00,
 				id_Transaccion =Transaccion.objects.get(id_Transaccion=transaccion.id_Transaccion),
 				id_cuenta =Cuenta.objects.get(codigo=50102),
-				)	
+				)
 			#Afecta cuenta Iva por Pagar
 			decimal.getcontext().rounding = decimal.ROUND_DOWN
 			aux=decimal.Decimal(float(producto.precioVenta)*float(producto.cantidadProducto)*0.13)
@@ -969,13 +970,13 @@ def prodTerminado(request,ordenId,periodoId):
 				id_Transaccion =Transaccion.objects.get(id_Transaccion=transaccion.id_Transaccion),
 				id_cuenta= Cuenta.objects.get(codigo=10102),
 				)
-			#Afecta venta de Panaderia		
+			#Afecta venta de Panaderia
 			detalleTransaccion.objects.create(
 				haber = float(producto.precioVenta)*float(producto.cantidadProducto),
 				debe =0.00,
 				id_Transaccion =Transaccion.objects.get(id_Transaccion=transaccion.id_Transaccion),
 				id_cuenta =Cuenta.objects.get(codigo=50102),
-				)	
+				)
 			#Afecta IVA por Pagar
 			decimal.getcontext().rounding = decimal.ROUND_DOWN
 			aux=decimal.Decimal(float(producto.precioVenta)*float(producto.cantidadProducto)*0.13)
@@ -1027,7 +1028,7 @@ def asignarPlanilla(request,empleadoId,periodoId):
 			if fechaEmpleado.day > fechaActual.day:
 				anio=int(anio)-int(1)
 
-	
+
 	if empleado.puesto == "Panadero":
 		planilla.salarioNominal=float(300.00)
 		planilla.save()
