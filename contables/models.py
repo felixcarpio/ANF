@@ -18,8 +18,8 @@ class Transaccion(models.Model):
 	fecha = models.DateField('Fecha de Transaccion', help_text='Formato: AAAA/MM/DD', blank=False, null=False)
 	id_periodoContable = models.ForeignKey(PeriodoContable, null=True, blank=True,on_delete= models.CASCADE)
 	is_inicial= models.NullBooleanField(null = True);
-	def __str__(self):
-		return '{}{}'.format(self.id_Transaccion,self.descripcion, self.fecha,self.id_periodoContable)
+	# def __str__(self):
+	# 	return '{}{}'.format(self.id_Transaccion,self.descripcion, self.fecha,self.id_periodoContable)
 
 
 class Cuenta(models.Model):
@@ -32,8 +32,8 @@ class Cuenta(models.Model):
 	saldoAcreedor = models.DecimalField('saldo_acreedor', max_digits =50, decimal_places=2,blank=False,null=False,validators=[MinValueValidator(0)],default=0.00)
 	codigo_dependiente = models.IntegerField(null= True)
 	descripcion = models.CharField(max_length= 256, null=False, blank=False, default='null')
-	def __str__(self):
-		return '{}{}'.format(self.nombre)
+	# def __str__(self):
+	# 	return '{}{}'.format(self.nombre)
 
 	def getHaber(self):
 		return self.haber
@@ -53,8 +53,8 @@ class detalleTransaccion(models.Model):
 	haber = models.DecimalField('haber', max_digits=50, decimal_places=2, blank=False, null=True, validators=[MinValueValidator(0)])
 	id_Transaccion = models.ForeignKey(Transaccion, null=True, blank=True,on_delete= models.CASCADE)
 	id_cuenta = models.ForeignKey(Cuenta, null=True, blank=True, on_delete=models.CASCADE)
-	def __str__(self):
-		return '{}{}'.format(self.id_detalle)
+	# def __str__(self):
+	# 	return '{}{}'.format(self.id_detalle)
 
 class estadoComprobacion(models.Model):
 	id= models.AutoField(primary_key=True)

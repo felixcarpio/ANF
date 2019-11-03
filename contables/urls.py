@@ -1,6 +1,6 @@
 from django.conf.urls import url,include
 
-from . import views,estadosFinancieros
+from . import views,estadosFinancieros,historialCuenta,reportes_pdf
 
 urlpatterns = [
     url(r'^index/$', estadosFinancieros.index),
@@ -37,4 +37,7 @@ urlpatterns = [
     url(r'^detallesKardex/(?P<materiaId>\d+)/(?P<periodoId>\d+)/$', views.detalleKardex),
     url(r'^productoTerminado/(?P<ordenId>\d+)/(?P<periodoId>\d+)/$', views.prodTerminado),
     url(r'^planillaGral/(?P<empleadoId>\d+)/(?P<periodoId>\d+)/$', views.asignarPlanilla),
+
+    url(r'^historialCuenta/$',historialCuenta.historialCuenta),
+    url(r'^pdf_cuentas/(?P<f1>[-\w]+)/(?P<f2>[-\w]+)/(?P<c1>\d+)/(?P<c2>\d+)/$', reportes_pdf.envio,name="pdf_hc"),
 ]

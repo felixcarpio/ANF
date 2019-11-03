@@ -7,7 +7,7 @@
 
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/Padding.css' %}">
-<script type="text/javascript"> 
+<script type="text/javascript">
     $(document).ready(function() {
         $('#enviar').click(function(e){
             e.preventDefault();
@@ -15,7 +15,7 @@
                 var dataString2 = $('#form-control2').serialize();
                 var dataString = dataString1+'&'+dataString2;
 
-                
+
             $.ajax({
                 type: "POST",
                 url: '',
@@ -44,6 +44,14 @@ if(w == z){
   }
 }
 }
+</script>
+
+<script type="text/javascript">
+  function validarSiNumero(e){
+    var key = window.Event ? e.which : e.keyCode
+  	return ((key >= 48 && key <= 57) || (key==8))
+    }
+
 </script>
 {% endblock head %}
 
@@ -136,22 +144,22 @@ if(w == z){
               <div class="col">
                 <form id="form-control1" method="POST">
                 {%csrf_token%}
-                  <div class="table-responsive">   
+                  <div class="table-responsive">
                     <table class="table" id="dataTable" width="100%" cellspacing="0">
                       <thead>
                         <tr>
                           <th>Cuentas Debe</th>
                         </tr>
                       </thead>
-                      <tbody> 
+                      <tbody>
                         <tr>
                           <td>
-                            Cuenta: <select style="width:80%" name="cuentaId1"> 
+                            Cuenta: <select style="width:80%" name="cuentaId1" class="js-select2-cuenta" data-tags="true" data-placeholder="Selecciones una cuenta" data-allow-clear="true">
                               {% for cuenta1 in cuenta %}
                               {% if cuenta1.codigo_dependiente == null %}
                               <option value="{{cuenta1.id}}">{{cuenta1.codigo}}    {{cuenta1.nombre}} {{cuentas.descripcion}}</option>
                               {% endif%}
-                              {% for cuenta2 in cuenta %} 
+                              {% for cuenta2 in cuenta %}
                               {% if cuenta1.id == cuenta2.codigo_dependiente %}
                               <option value="{{cuenta2.id}}">{{cuenta2.codigo}}    {{cuenta2.nombre}} {{cuentas.descripcion}}</option>
                               {% endif  %}
@@ -162,8 +170,8 @@ if(w == z){
                         </tr>
                         <tr>
                           <td>
-                            Debe: <input type="number" name="monto1" step="0.1" style="margin-left: 13px">
-                            <input type="hidden" name="idtrans1" value="{{transaccionId}}"> 
+                            Debe: <input type="text" pattern="[0-9]" onkeypress="return validarSiNumero(event);" name="monto1" min="0" step="0.1" style="margin-left: 13px">
+                            <input type="hidden" name="idtrans1" value="{{transaccionId}}">
                           </td>
                         </tr>
                       </tbody>
@@ -174,7 +182,7 @@ if(w == z){
               <div class="col">
                 <form id="form-control2" method="POST">
                 {%csrf_token%}
-                  <div class="table-responsive">   
+                  <div class="table-responsive">
                     <table class="table" id="dataTable" width="100%" cellspacing="0">
                       <thead>
                         <tr>
@@ -184,12 +192,12 @@ if(w == z){
                       <tbody>
                         <tr>
                           <td>
-                            Cuenta: <select style="width:80%" name="cuentaId2"> 
+                            Cuenta: <select style="width:80%" name="cuentaId2" class="js-select2-cuenta" data-tags="true" data-placeholder="Selecciones una cuenta" data-allow-clear="true">
                               {% for cuenta1 in cuenta %}
                               {% if cuenta1.codigo_dependiente == null %}
                               <option value="{{cuenta1.id}}">{{cuenta1.codigo}}    {{cuenta1.nombre}} {{cuentas.descripcion}}</option>
                               {% endif%}
-                              {% for cuenta2 in cuenta %} 
+                              {% for cuenta2 in cuenta %}
                               {% if cuenta1.id == cuenta2.codigo_dependiente %}
                               <option value="{{cuenta2.id}}">{{cuenta2.codigo}}    {{cuenta2.nombre}} {{cuentas.descripcion}}</option>
                               {% endif  %}
@@ -200,7 +208,7 @@ if(w == z){
                         </tr>
                         <tr>
                           <td>
-                            Haber: <input type="number" name="monto2" step="0.1" style="margin-left: 8px">
+                            Haber: <input type="text" pattern="[0-9]" onkeypress="return validarSiNumero(event);" name="monto2" min="0" step="0.1" style="margin-left: 8px">
                             <input type="hidden" name="idtrans2" value="{{transaccionId}}">
                           </td>
                         </tr>
@@ -219,13 +227,13 @@ if(w == z){
         </div>
       </div>
   	</div>
-    
+
 
   <!-- /.content-wrapper-->
     <footer class="sticky-footer">
       <div class="container">
         <div class="text-center">
-          <small>Univerisdad de El Salvador. 2017</small>
+          <small>Univerisdad de El Salvador. 2019</small>
         </div>
       </div>
     </footer>

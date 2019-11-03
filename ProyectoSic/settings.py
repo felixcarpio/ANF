@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'contables',
     'myauth',
+    'chartjs',
 ]
 
 MIDDLEWARE = [
@@ -74,7 +75,7 @@ WSGI_APPLICATION = 'ProyectoSic.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases 
+# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -142,4 +143,4 @@ STATICFILES_DIRS = (
 )
 STATIC_URL = '/static/'
 
-#STATIC_ROOT = '/C:/Users/WalterLuna/Documentos/ProyectoSic/contables/static/' 
+#STATIC_ROOT = '/C:/Users/WalterLuna/Documentos/ProyectoSic/contables/static/'

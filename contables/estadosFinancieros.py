@@ -43,6 +43,27 @@ def createEstadoIniciales():
     if balanceGNull==None:
         balanceGeneral.objects.create(debe=0.00,haber=0.00)
 
+    panes = ['Donas chocolate','Pastel fresa','Budín','Semita de piña']
+    try:
+        panNull = Pan.objects.get(id=1)
+    except Pan.DoesNotExist:
+        panNull = None
+    if panNull==None:
+        for pan in panes:
+            Pan.objects.create(descripcion=pan)
+    dic=[]
+    dic.append(dict(nombre='azucar',cantidad=5,precio=2.50))
+    dic.append(dict(nombre='crema',cantidad=5,precio=3.50))
+    try:
+        mpNull = MateriaPrima.objects.get(id=1)
+    except MateriaPrima.DoesNotExist:
+        mpNull=None
+    if mpNull == None:
+        for mprima in dic:
+            MateriaPrima.objects.create(nombreMateriaPrima=mprima['nombre'],cantidad=mprima['cantidad'],precioUnitario=mprima['precio'])
+
+
+
 @login_required
 def index(request):
     	userId=request.user.is_admin

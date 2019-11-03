@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block content %}
+  <body>
+    <div class="card mb-3">
+      <div class="card-header">
+        <h2 align="center">Panadería Lila</h2>
+        <h3 align="center"><i class="fa fa-plus"></i> Comparación de cuentas</h3>
+        <h3 align="center"><strong>De {{f1}} a {{f2}}</strong></h3>
+      </div>
+      <div class="card-body">
+        <div class="container" >
+          <div class="row">
+            <div class="col">
+                <div class="table-responsive" id="contenidoPDF">
+                  {%if cuentasT1%}
+                  <h4 align="center">{{c1}}</h4>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Debe</th>
+                        <th>Haber</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {%for cuenta1 in cuentasT1%}
+                      <tr>
+                        <td>{{cuenta1.debe}}</td>
+                        <td>{{cuenta1.haber}}</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                 {% endif %}
+                </div>
+            </div>
+            <div class="col">
+                <div class="table-responsive">
+                 {%if cuentasT2%}
+                 <h4 align="center">{{c2}}</h4>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Debe</th>
+                        <th>Haber</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {%for cuenta2 in cuentasT2%}
+                      <tr>
+                        <td>{{cuenta2.debe}}</td>
+                        <td>{{cuenta2.haber}}</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+               {% endif %}
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  {% endblock %}

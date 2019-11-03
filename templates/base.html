@@ -7,7 +7,7 @@
  		<meta http-equiv="X-UA-Compatible" content="IE=edge">
   		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   		<meta name="description" content="Sistema de contabilidad">
-		{% block title%} 
+		{% block title%}
 		{% endblock %}
 		<script type="text/javascript" src="{%static 'js/jquery-3.2.1.min.js'%}"></script>
 		{% block head %}
@@ -23,6 +23,7 @@
 	  <link href="{%static 'css/sb-admin.css' %}" rel="stylesheet" type="text/css">
 	  <!-- Mis estilos -->
 	  <link href="{%static 'css/misestilos.css' %}" rel="stylesheet" type="text/css">
+		<link href="{%static 'css/select2.min.css'%}" rel="stylesheet" type="text/css">
 
 
 	</head>
@@ -45,5 +46,10 @@
 	    <!-- Custom scripts for this page-->
 	    <script src="js/sb-admin-datatables.min.js" type="text/javascript"></script>
 	    <script src="js/sb-admin-charts.min.js" type="text/javascript"></script>
+			<script src="{%static 'js/select2.min.js' %}" type="text/javascript"></script>
+			<script src="{%static 'js/selectCuenta.js' %}" type="text/javascript"></script>
+				<script src="{%static 'js/jspdf.min.js' %}" type="text/javascript"></script>
+<script src="{%static 'js/jspdf.debug.js' %}" type="text/javascript"></script>
+					<script src="{%static 'js/generate_pdf.js' %}" type="text/javascript"></script>
 	</body>
 </html>

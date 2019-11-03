@@ -100,7 +100,9 @@
                   {% endif %} -->
                   {% if cuenta1.codigo_dependiente == null%}
                   <!-- <td><h5>Padre</h5></td> -->
-                  <td><h5><a href="/agregarCuentaHija/{{cuenta1.id}}">Asignar Cuentas hijas</a></h5></td>
+                  <td><h6><a href="/agregarCuentaHija/{{cuenta1.id}}">Asignar Cuentas hijas</a>|
+                    <a href="/modificarCuenta/{{cuenta1.id}}">Modificar Cuenta</a></h6></td>
+                  <!-- <td><h6><a href="/agregarCuentaHija/{{cuenta1.id}}">Modificar Cuentas</a></h6></td> -->
                   {% endif %}
                 </tr>
                   {% endif %}
@@ -114,7 +116,8 @@
 
                   {% if cuenta2.codigo_dependiente != null %}
                   <!-- <td>{{cuenta2.codigo_dependiente}}</td> -->
-                  <td><a href="/modificarCuenta/{{cuenta2.id}}">Modificar Cuenta</a></td>
+                  <td><a href="/agregarCuentaHija/{{cuenta2.id}}">Asignar Cuentas hijas</a>|
+                    <a href="/modificarCuenta/{{cuenta2.id}}">Modificar Cuenta</a></td>
                   {% endif %}
                   </tr>
                   {% endif  %}
