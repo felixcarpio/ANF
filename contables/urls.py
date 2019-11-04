@@ -1,6 +1,7 @@
 from django.conf.urls import url,include
 
-from . import views,estadosFinancieros,historialCuenta,reportes_pdf
+from . import views, kardexViews, orderViews,estadosFinancieros,historialCuenta,reportes_pdf
+
 
 urlpatterns = [
     url(r'^index/$', estadosFinancieros.index),
@@ -28,16 +29,19 @@ urlpatterns = [
     url(r'^manejoOrdenes/(?P<periodoId>\d+)/$', views.manejoOrden),
     url(r'^contratacion/(?P<periodoId>\d+)/$', views.contratacionEmpleado),
     url(r'^planillaGeneral/(?P<periodoId>\d+)/$', views.planilla),
-    url(r'^kardex/(?P<periodoId>\d+)/$', views.manejoKardex),
-    url(r'^crearOrden/(?P<periodoId>\d+)/$', views.crearOrd),
-    url(r'^modificarCIF/(?P<periodoId>\d+)/$', views.modificarCif),
-    url(r'^gestionarOrden/(?P<ordenId>\d+)/(?P<periodoId>\d+)/$', views.gestionOrden),
-    url(r'^asignarMP/(?P<ordenId>\d+)/(?P<periodoId>\d+)/$', views.asignarMP),
-    url(r'^asignarMOD/(?P<ordenId>\d+)/(?P<periodoId>\d+)/$', views.asignarMOD),
-    url(r'^detallesKardex/(?P<materiaId>\d+)/(?P<periodoId>\d+)/$', views.detalleKardex),
     url(r'^productoTerminado/(?P<ordenId>\d+)/(?P<periodoId>\d+)/$', views.prodTerminado),
     url(r'^planillaGral/(?P<empleadoId>\d+)/(?P<periodoId>\d+)/$', views.asignarPlanilla),
-
     url(r'^historialCuenta/$',historialCuenta.historialCuenta),
     url(r'^pdf_cuentas/(?P<f1>[-\w]+)/(?P<f2>[-\w]+)/(?P<c1>\d+)/(?P<c2>\d+)/$', reportes_pdf.envio,name="pdf_hc"),
+
+    #################    kardexViews #######################
+    url(r'^kardex/(?P<periodoId>\d+)/$', kardexViews.manejoKardex), 
+    url(r'^detallesKardex/(?P<materiaId>\d+)/(?P<periodoId>\d+)/$', kardexViews.detalleKardex),
+
+    #################   orderViews #########################   
+    url(r'^crearOrden/(?P<periodoId>\d+)/$', orderViews.crearOrd),
+    url(r'^modificarCIF/(?P<periodoId>\d+)/$', orderViews.modificarCif),
+    url(r'^gestionarOrden/(?P<ordenId>\d+)/(?P<periodoId>\d+)/$', orderViews.gestionOrden),
+    url(r'^asignarMP/(?P<ordenId>\d+)/(?P<periodoId>\d+)/$', orderViews.asignarMP),
+    url(r'^asignarMOD/(?P<ordenId>\d+)/(?P<periodoId>\d+)/$', orderViews.asignarMOD),
 ]
