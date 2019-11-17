@@ -27,6 +27,9 @@ def envio(request,f1=None,f2=None,c1=None,c2=None):
     pdf=render_pdf(url_template,context)
     return HttpResponse(pdf,content_type="application/pdf")
 
+#def render_pdf_bc(url_template,contexto=None):
+
+
 # class PDFPrueba(View):
 #     def get(self,request,*args,**kwargs):
 #         pdf=render_pdf("contables/pdf/comparacion_cuentas.html")

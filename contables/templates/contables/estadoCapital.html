@@ -3,8 +3,9 @@
   {% block title %}
   <title>Estado de capital</title>
   {% endblock title %}
-
-
+{% block head%}
+{% endblock head%}
+	<script src="../static/js/print.min.js" type="text/javascript"></script>
 
 {% block content %}
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -82,9 +83,10 @@
         <li class="breadcrumb-item active">Estado de capital</li>
       </ol>
       <!-- Carta de contenido -->
+      <form action="#" id="printJS-form">
       <div class="card mb-3">
         <div class="card-header">
-          <i class="fa fa-list"></i> Estado de capital  
+          <i class="fa fa-list"></i> Estado de capital
         </div>
         <div class="card-body">
           <!-- Tabla 1 -->
@@ -102,7 +104,7 @@
                 <td>{{inversiones.descripcion}}</td>
                 <td>{{inversiones.saldoAcreedor}}</td>
               </tr>
-                 {% endfor %} 
+                 {% endfor %}
 
                 <tr>
                     {% for util in utilidades%}
@@ -171,13 +173,13 @@
           </table>
           <h2>Final</h2>
           <table class="table" id="dataTable" width="100%" cellspacing="0" >
-            <tr>   
+            <tr>
                 {% for capital in capitalContable %}
               <td>Capital Contable:</td>
               <td>{{capital.capitalContable}}</td>
             </tr>
                 {% endfor %}
-              
+
             <tr>
                 {% for capital in capitalContable%}
               <td>Utilidad Retenida:</td>
@@ -188,8 +190,12 @@
 
         </div>
       </div>
+      </form>
+      <button type="button" class="btn btn-danger" onclick="printJS({ printable: 'printJS-form', type: 'pdf', header: 'ESTADO DE CAPITAL' })">
+       Generar PDF
+      </button>
     </div>
-    
+
 
   <!-- /.content-wrapper-->
     <footer class="sticky-footer">
@@ -223,5 +229,6 @@
     </div>
   </div>
 </body>
+
 {% endblock content %}
 </html>

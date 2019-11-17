@@ -83,69 +83,84 @@
         <li class="breadcrumb-item active">Planilla mensual</li>
       </ol>
       <!-- Carta de contenido -->
+      <form action="#" id="printJS-form">
       <div class="card mb-3">
         <div class="card-header">
-          <i class="fa fa-list"></i> Planilla mensual del empleado: {{emp.nombreEmpleado}} {{emp.apellidoEmpleado}}
+          <i class="fa fa-list"></i> Planilla mensual del empleado
         </div>
         <div class="card-body container">
+            <strong><h3>Empleada/o: {{emp.nombreEmpleado|capfirst}} {{emp.apellidoEmpleado|capfirst}}</h3></strong>
           <div class="row">
-            <div class="col-2">
-              <label>AFP</label>
+
+            <div class="col">
+              <div class="row">
+                <div class="col-2">
+                  <label>AFP</label>
+                </div>
+                <div class="col-6">
+                  <input type="number" name="afp" step="0.1" readonly="readonly" value="{{planillaGeneral.AFP_general}}" class="form-control">
+                </div>
+              </div>
+              <div class="row" style="margin-top: 5px">
+                <div class="col-2">
+                  <label>ISSS</label>
+                </div>
+                <div class="col-6">
+                  <input type="number" name="afp" step="0.1" readonly="readonly" value="{{planillaGeneral.ISSS_general}}" class="form-control">
+                </div>
+              </div>
+              <div class="row" style="margin-top: 5px">
+                <div class="col-2">
+                  <label>Vacaciones</label>
+                </div>
+                <div class="col-6">
+                  <input type="number" name="afp" step="0.1" readonly="readonly" value="{{planillaGeneral.vacaciones}}" class="form-control">
+                </div>
+              </div>
+              <div class="row" style="margin-top: 5px">
+                <div class="col-2">
+                  <label>INSAFORP</label>
+                </div>
+                <div class="col-6">
+                  <input type="number" name="afp" step="0.1" readonly="readonly" value="{{planillaGeneral.insaforp}}" class="form-control">
+                </div>
+              </div>
             </div>
-            <div class="col-3">
-              <input type="number" name="afp" step="0.1" readonly="readonly" value="{{planillaGeneral.AFP_general}}" class="form-control">    
+            <div class="col">
+              <div class="row" style="margin-top: 5px">
+                <div class="col-4">
+                  <label>Aguinaldo</label>
+                </div>
+                <div class="col-6">
+                  <input type="number" name="afp" step="0.1" readonly="readonly" value="{{planillaGeneral.aguinaldo}}" class="form-control">
+                </div>
+              </div>
+              <div class="row" style="margin-top: 5px">
+                <div class="col-4">
+                  <label>Salario base</label>
+                </div>
+                <div class="col-6">
+                  <input type="number" name="afp" step="0.1" readonly="readonly" value="{{planillaGeneral.salarioNominal}}" class="form-control">
+                </div>
+              </div>
+              <div class="row" style="margin-top: 5px">
+                <div class="col-4">
+                  <label>Salario total</label>
+                </div>
+                <div class="col-6">
+                  <input type="number" name="afp" step="0.1" readonly="readonly" value="{{planillaGeneral.salarioTotal}}" class="form-control">
+                </div>
+            </div>
             </div>
           </div>
-          <div class="row" style="margin-top: 5px">
-            <div class="col-2">
-              <label>ISSS</label>
-            </div>
-            <div class="col-3">
-              <input type="number" name="afp" step="0.1" readonly="readonly" value="{{planillaGeneral.ISSS_general}}" class="form-control">
-            </div>
-          </div>
-          <div class="row" style="margin-top: 5px">
-            <div class="col-2">
-              <label>Vacaciones</label>
-            </div>
-            <div class="col-3">
-              <input type="number" name="afp" step="0.1" readonly="readonly" value="{{planillaGeneral.vacaciones}}" class="form-control">
-            </div>
-          </div>
-          <div class="row" style="margin-top: 5px">
-            <div class="col-2">
-              <label>INSAFORP</label>
-            </div>
-            <div class="col-3">
-              <input type="number" name="afp" step="0.1" readonly="readonly" value="{{planillaGeneral.insaforp}}" class="form-control">
-            </div>
-          </div>
-          <div class="row" style="margin-top: 5px">
-            <div class="col-2">
-              <label>Aguinaldo</label>
-            </div>
-            <div class="col-3">
-              <input type="number" name="afp" step="0.1" readonly="readonly" value="{{planillaGeneral.aguinaldo}}" class="form-control">
-            </div>
-          </div>
-          <div class="row" style="margin-top: 5px">
-            <div class="col-2">
-              <label>Salario base</label>
-            </div>
-            <div class="col-3">
-              <input type="number" name="afp" step="0.1" readonly="readonly" value="{{planillaGeneral.salarioNominal}}" class="form-control">
-            </div>
-          </div>
-          <div class="row" style="margin-top: 5px">
-            <div class="col-2">
-              <label>Salario total</label>
-            </div>
-            <div class="col-3">
-              <input type="number" name="afp" step="0.1" readonly="readonly" value="{{planillaGeneral.salarioTotal}}" class="form-control">
-            </div>
-        </div>
+
+
       </div>
     </div>
+      </form>
+      <button type="button" class="btn btn-danger" onclick="printJS({ printable: 'printJS-form', type: 'pdf', header: 'Planilla Salarial' })">
+       Generar PDF
+      </button>
   </div>
 </div>
   <!-- /.content-wrapper-->
