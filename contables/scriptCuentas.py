@@ -179,7 +179,11 @@ cuentas = [
 	["50102","BEBIDAS Y OTROS","501"],
 	["50103","OTROS INGRESOS","501"],
 	["6","PERDIDAS Y GANANCIAS",""],
-	["601","PERDIDAS Y GANANCIAS","6"]
+	["601","PERDIDAS Y GANANCIAS","6"],
+
+	#Las quemadas en el kardex
+	["10141","Transaccional proveedor","101"],
+	["10137","Transaccional IVA","101"]
 ]
 
 def cargarCatalogoCuentas():

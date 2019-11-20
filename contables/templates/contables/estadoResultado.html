@@ -5,13 +5,13 @@
   {% endblock title %}
 
   {% block head %}
-<script type="text/javascript"> 
+<script type="text/javascript">
     $(document).ready(function() {
         $('#enviar').click(function(e){
             e.preventDefault();
                 var dataString = $('#form-control').serialize();
 
-           
+
 
             $.ajax({
                 type: "POST",
@@ -108,9 +108,10 @@
         <li class="breadcrumb-item active">Estado de resultados</li>
       </ol>
       <!-- Carta de contenido -->
+      <form id="printJS-form">
       <div class="card mb-3">
         <div class="card-header">
-          <i class="fa fa-list"></i> Estado de resultados 
+          <i class="fa fa-list"></i> Estado de resultados
         </div>
         <div class="card-body">
           <h3>Ingresos</h3>
@@ -215,7 +216,7 @@
   <td>Total</td>
   <td></td>
   <td >{{resultados.debe}}</td>
-  
+
   {% endfor %}
   </tr>
   </tbody>
@@ -271,8 +272,10 @@
 
         </div>
       </div>
+      </form>
+      <button type="button"  onclick="printJS({ printable: 'printJS-form', type: 'html', header: 'ESTADO DE RESULTADO' })" class="btn btn-danger">Generar PDF</button>
   	</div>
-    
+
 
   <!-- /.content-wrapper-->
     <footer class="sticky-footer">

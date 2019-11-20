@@ -14,6 +14,9 @@
  if(w == z){
      alert('No puede ingresar la misma cuenta vuelva a ingresar los datos');
  }else{
+   if(x==null || y==null){
+     alert('Fechas no pueden estar vacias');
+   }
        if(x > y){
      alert('Fecha 1 no puede ser mayor que Fecha 2, ingrese nuevamente');
    }

@@ -8,6 +8,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.db.models import Max,Count
 from django.db import connection
+from .scriptCuentas import cargarCatalogoCuentas
 from .models import Empleado,planillaGeneral,Pan,MateriaPrima,CIF,Final,Kardex,Entrada,Salida,Orden,materialUtilizado,productoTerminado,empleadosXorden
 import datetime
 import decimal
@@ -545,6 +546,7 @@ def historialCuenta(request,periodoId):
 def catalogoCuenta(request):
 	 #for cuenta1 in Cuenta.objects.annotate(codigo_length=Length('codigo')).filter((codigo__startswith = 1)  )
 	#cuentas = Cuenta.objects.all()
+	cargarCatalogoCuentas()
 	cuentasArr = []
 	cuentasArr.append(Cuenta.objects.filter(codigo__lt=9).order_by('codigo'))
 	cuentasArr.append(Cuenta.objects.filter(Q(codigo__gt=9) 			& Q(codigo__lt=999)).order_by('codigo'))

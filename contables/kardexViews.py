@@ -8,7 +8,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.db.models import Max,Count
 from django.db import connection
-from .scriptCuentas import cargarCatalogoCuentas
+
 import datetime
 import decimal
 # Create your views here.
@@ -24,7 +24,7 @@ import decimal
 
 @login_required
 def catalogoProducto(request):
-	cargarCatalogoCuentas()
+
 	p = Pan.objects.all()
 	return render(request, 'contables/productos/catalogoProducto.html',{'productos':p})
 	
