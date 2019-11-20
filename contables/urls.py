@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^balanceGeneral/(?P<periodoId>\d+)/$', views.balanceGral),
     url(r'^contabilidadCostos/(?P<periodoId>\d+)/$', views.contabilidadCost),
     url(r'^compraMP/(?P<periodoId>\d+)/$', views.compraMateriaPrima),
+    url(r'^compraMP/(?P<periodoId>\d+)/agregarMp$', views.crearMateriaPrima),
     url(r'^manejoOrdenes/(?P<periodoId>\d+)/$', views.manejoOrden),
     url(r'^contratacion/(?P<periodoId>\d+)/$', views.contratacionEmpleado),
     url(r'^planillaGeneral/(?P<periodoId>\d+)/$', views.planilla),
@@ -37,6 +38,8 @@ urlpatterns = [
     #################    kardexViews #######################
     url(r'^kardex/(?P<periodoId>\d+)/$', kardexViews.manejoKardex), 
     url(r'^detallesKardex/(?P<materiaId>\d+)/(?P<periodoId>\d+)/$', kardexViews.detalleKardex),
+    url(r'^producto/$', kardexViews.catalogoProducto),
+    url(r'^producto/crear/$', kardexViews.crearProducto),
 
     #################   orderViews #########################   
     url(r'^crearOrden/(?P<periodoId>\d+)/$', orderViews.crearOrd),

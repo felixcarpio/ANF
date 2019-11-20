@@ -33,6 +33,12 @@
             <span class="nav-link-text">Catalogo de cuentas</span>
           </a>
         </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Catalogo de productos">
+          <a class="nav-link" href="/producto/" >
+            <i class="fa fa-fw fa-files-o"></i>
+            <span class="nav-link-text">Catalogo de productos</span>
+          </a>
+        </li>
       </ul>
       <ul class="navbar-nav sidenav-toggler">
         <li class="nav-item">
@@ -89,59 +95,59 @@
           <i class="fa fa-list"></i> Deatelle de kardex: {{materia.nombreMateriaPrima}}
         </div>
         <div class="card-body container">
-	        <table class="table" id="dataTable" width="100%" cellspacing="0">
-	        	<thead>
-	        		<th>Fecha</th>
-	        		<th>Cantidad</th>
-	        		<th>Precio unitario</th>
-	        		<th>Monto</th>
-	        		<th>Cantidad</th>
-	        		<th>Precio unitario</th>
-	        		<th>Monto</th>
-	        		<th>Cantidad</th>
-	        		<th>Precio unitario</th>
-	        		<th>Monto</th>
-	        	</thead>
-	        	<tbody>
-		          {% for fn in final %}
-		              {% for entry in entrada %}
-		                {% if entry.fechaEntrada == fn.fechaFinal %}
-		                	<tr>
-			                  <td>{{entry.fechaEntrada}}</td>
-			                  <td>{{entry.cantidadEntrada}}</td>
-			                  <td>{{entry.costoUnitarioEntrada}}</td>
-			                  <td>{{entry.costoTotalEntrada}}</td>
-			                  <td>-</td>
-			                  <td>-</td>
-			                  <td>-</td>
-			                  <td>{{fn.cantidadFinal}}</td>
-			                  <td>{{fn.costoUnitarioFinal}}</td>
-			                  <td>{{fn.costoTotalFinal}}</td>
-		                	</tr>
-		                {% endif %}
-		              {% endfor %}
-		          {% endfor %}
-		          {% for fn in final %}
+          <table class="table" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+              <th>Fecha</th>
+              <th>Cantidad</th>
+              <th>Precio unitario</th>
+              <th>Monto</th>
+              <th>Cantidad</th>
+              <th>Precio unitario</th>
+              <th>Monto</th>
+              <th>Cantidad</th>
+              <th>Precio unitario</th>
+              <th>Monto</th>
+            </thead>
+            <tbody>
+              {% for fn in final %}
+                  {% for entry in entrada %}
+                    {% if entry.fechaEntrada == fn.fechaFinal %}
+                      <tr>
+                        <td>{{entry.fechaEntrada}}</td>
+                        <td>{{entry.cantidadEntrada}}</td>
+                        <td>{{entry.costoUnitarioEntrada}}</td>
+                        <td>{{entry.costoTotalEntrada}}</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>{{fn.cantidadFinal}}</td>
+                        <td>{{fn.costoUnitarioFinal}}</td>
+                        <td>{{fn.costoTotalFinal}}</td>
+                      </tr>
+                    {% endif %}
+                  {% endfor %}
+              {% endfor %}
+              {% for fn in final %}
 
-		              {% for entry in salida %}
-		                {% if entry.fechaSalida == fn.fechaFinal %} 
-		                	<tr>
-		                  <td>{{entry.fechaSalida}}</td>
-			                  <td>-</td>
-			                  <td>-</td>
-			                  <td>-</td>
-			                  <td>{{entry.cantidadSalida}}</td>
-			                  <td>{{entry.costoUnitarioSalida}}</td>
-			                  <td>{{entry.costoTotalSalida}}</td>
-			                  <td>{{fn.cantidadFinal}}</td>
-			                  <td>{{fn.costoUnitarioFinal}}</td>
-			                  <td>{{fn.costoTotalFinal}}</td>
-		                	</tr>
-		                {% endif %}
-		              {% endfor %}
-		          {% endfor %}
-	        	</tbody>
-	        </table>
+                  {% for entry in salida %}
+                    {% if entry.fechaSalida == fn.fechaFinal %} 
+                      <tr>
+                      <td>{{entry.fechaSalida}}</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>{{entry.cantidadSalida}}</td>
+                        <td>{{entry.costoUnitarioSalida}}</td>
+                        <td>{{entry.costoTotalSalida}}</td>
+                        <td>{{fn.cantidadFinal}}</td>
+                        <td>{{fn.costoUnitarioFinal}}</td>
+                        <td>{{fn.costoTotalFinal}}</td>
+                      </tr>
+                    {% endif %}
+                  {% endfor %}
+              {% endfor %}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -149,7 +155,7 @@
     <footer class="sticky-footer">
       <div class="container">
         <div class="text-center">
-          <small>Univerisdad de El Salvador. 2017</small>
+          <small>Univerisdad de El Salvador. 2018</small>
         </div>
       </div>
     </footer>
