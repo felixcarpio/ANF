@@ -36,6 +36,12 @@
             <span class="nav-link-text"> Catalogo de cuentas</span>
           </a>
         </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Catalogo de productos">
+          <a class="nav-link" href="/producto/" >
+            <i class="fa fa-fw fa-files-o"></i>
+            <span class="nav-link-text">Catalogo de productos</span>
+          </a>
+        </li>
       </ul>
       <ul class="navbar-nav sidenav-toggler">
         <li class="nav-item">
@@ -79,50 +85,116 @@
               <thead>
                 <tr>
                   <!-- <td>Identificador </td> -->
-                  <td>Codigo</td>
-                  <td>Cuenta</td>
+                  <td><b>Codigo</b></td>
+                  <td><b>Cuenta</b></td>
                   <!-- <td>Descripcion</td>
                   <td>Relacion</td> -->
-                  <td>Gestionar cuenta</td>
+                  <td><b>Gestionar cuenta</b></td>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  {% for cuenta1 in cuenta%}
-                  {% if cuenta1.codigo_dependiente == null %}
-                  <!-- <td><h5>{{cuenta1.id}}</h5></td> -->
-                  <td><h5>{{cuenta1.codigo}}</h5></td>
-                  <td><h5>{{cuenta1.nombre}}</h5></td>
-                  <!-- <td><h5>{{cuenta1.descripcion}}</h5></td> -->
+                {%if cuenta.0 %}
+                  {% for cuenta1 in cuenta.0 %}
+                    
+                    <tr>
+                      <td><h5><b>{{cuenta1.codigo}}</b></h5></td>
+                      <td><h5><b>{{cuenta1.nombre}}</b></h5></td>
+                      <td>
+                        <h6>
+                          <a href="/agregarCuentaHija/{{cuenta1.id}}">Asignar Cuentas hijas</a>|
+                          <a href="/modificarCuenta/{{cuenta1.id}}">Modificar Cuenta</a>
+                        </h6>
+                      </td>
+                    </tr>
+                    
+                    {%if cuenta.1%}
+                      {%for cuenta2 in cuenta.1 %}
+                        {%if cuenta2.codigo_dependiente == cuenta1.codigo %}
 
-                  <!-- {% if cuenta1.codigo_dependiente != null %}
-                  <td><h5>{{cuenta1.codigo_dependiente}}</h5></td>
-                  {% endif %} -->
-                  {% if cuenta1.codigo_dependiente == null%}
-                  <!-- <td><h5>Padre</h5></td> -->
-                  <td><h6><a href="/agregarCuentaHija/{{cuenta1.id}}">Asignar Cuentas hijas</a>|
-                    <a href="/modificarCuenta/{{cuenta1.id}}">Modificar Cuenta</a></h6></td>
-                  <!-- <td><h6><a href="/agregarCuentaHija/{{cuenta1.id}}">Modificar Cuentas</a></h6></td> -->
-                  {% endif %}
-                </tr>
-                  {% endif %}
-                  {% for cuenta2 in cuenta%}
-                  <tr>
-                  {% if cuenta1.id == cuenta2.codigo_dependiente %}
-                  <!-- <td></td> -->
-                  <td>{{cuenta2.codigo}}</td>
-                  <td>{{cuenta2.nombre}}</td>
-                  <!-- <td>{{cuenta2.descripcion}}</td> -->
+                          <tr>
+                            <td><h6><b>{{cuenta2.codigo}}</b></h6></td>
+                            <td><h6><b>{{cuenta2.nombre}}</b></h6></td>
+                            <td>
+                              <a href="/agregarCuentaHija/{{cuenta2.id}}">Asignar Cuentas hijas</a>|
+                              <a href="/modificarCuenta/{{cuenta2.id}}">Modificar Cuenta</a>
+                            </td>
+                          </tr>
 
-                  {% if cuenta2.codigo_dependiente != null %}
-                  <!-- <td>{{cuenta2.codigo_dependiente}}</td> -->
-                  <td><a href="/agregarCuentaHija/{{cuenta2.id}}">Asignar Cuentas hijas</a>|
-                    <a href="/modificarCuenta/{{cuenta2.id}}">Modificar Cuenta</a></td>
-                  {% endif %}
-                  </tr>
-                  {% endif  %}
-                  {% endfor %}
-                  {% endfor %}
+                          {%if cuenta.2 %}
+                            {%for cuenta3 in cuenta.2 %}
+                              {%if cuenta3.codigo_dependiente == cuenta2.codigo %}
+
+                                <tr>
+                                  <td><h6>{{cuenta3.codigo}}</h6></td>
+                                  <td><h6>{{cuenta3.nombre}}</h6></td>
+                                  <td>
+                                    <a href="/agregarCuentaHija/{{cuenta3.id}}">Asignar Cuentas hijas</a>|
+                                    <a href="/modificarCuenta/{{cuenta3.id}}">Modificar Cuenta</a>
+                                  </td>
+                                </tr>
+
+                                {%if cuenta.3 %}
+                                  {%for cuenta4 in cuenta.3 %}
+                                    {%if cuenta4.codigo_dependiente == cuenta3.codigo %}
+
+                                      <tr>
+                                        <td><h6>{{cuenta4.codigo}}</h6></td>
+                                        <td><h6>{{cuenta4.nombre}}</h6></td>
+                                        <td>
+                                          <a href="/agregarCuentaHija/{{cuenta4.id}}">Asignar Cuentas hijas</a>|
+                                          <a href="/modificarCuenta/{{cuenta4.id}}">Modificar Cuenta</a>
+                                        </td>
+                                      </tr>
+
+                                      {%if cuenta.4 %}
+                                        {%for cuenta5 in cuenta.4 %}
+                                          {%if cuenta5.codigo_dependiente == cuenta4.codigo %}
+
+                                            <tr>
+                                              <td><h6>{{cuenta5.codigo}}</h6></td>
+                                              <td><h6>{{cuenta5.nombre}}</h6></td>
+                                              <td>
+                                                <a href="/agregarCuentaHija/{{cuenta5.id}}">Asignar Cuentas hijas</a>|
+                                                <a href="/modificarCuenta/{{cuenta5.id}}">Modificar Cuenta</a>
+                                              </td>
+                                            </tr>
+
+                                            {%if cuenta.5 %}
+                                              {%for cuenta6 in cuenta.5 %}
+                                                {%if cuenta6.codigo_dependiente == cuenta5.codigo %}
+
+                                                  <tr>
+                                                    <td><h6>{{cuenta6.codigo}}</h6></td>
+                                                    <td><h6>{{cuenta6.nombre}}</h6></td>
+                                                    <td>
+                                                      <a href="/agregarCuentaHija/{{cuenta6.id}}">Asignar Cuentas hijas</a>|
+                                                      <a href="/modificarCuenta/{{cuenta6.id}}">Modificar Cuenta</a>
+                                                    </td>
+                                                  </tr>
+
+                                                {%endif%}
+                                              {%endfor%}
+                                            {%endif%}
+
+                                          {%endif%}
+                                        {%endfor%}
+                                      {%endif%}
+
+                                    {%endif%}
+                                  {%endfor%}
+                                {%endif%}
+
+                              {%endif%}
+                            {%endfor%}
+                          {%endif%}
+
+                        {%endif%}
+                      {%endfor%}
+                    {%endif%}
+
+                  {%endfor%}
+                {%endif%}
+    
               </tbody>
             </table>
           </div>

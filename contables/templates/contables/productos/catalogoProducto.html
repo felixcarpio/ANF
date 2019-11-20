@@ -1,9 +1,8 @@
  {% extends 'base.html' %}
 
   {% block title %}
-  <title>Contabilidad de costos</title>
+  <title>Producto</title>
   {% endblock title %}
-
 
 {% block content %}
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -69,64 +68,44 @@
   </nav>
   <!-- Contenido de la pagina -->
   <div class="content-wrapper">
-  	<div class="container-fluid">
-	  <!-- Breadcrumbs -->
+    <div class="container-fluid">
+      <!-- Breadcrumbs -->
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
          <a href="/index">Inicio</a>
         </li>
-        <li class="breadcrumb-item">
-          <a href="/periodoConta">Periodo Contable</a>
-        </li>
-        <li class="breadcrumb-item">
-          <a href="/menu/{{periodoId}}">Menu</a>
-        </li>
-        <li class="breadcrumb-item active">Contabilidad de Costos</li>
+        <li class="breadcrumb-item active">Catalogo de productos</li>
       </ol>
       <!-- Carta de contenido -->
       <div class="card mb-3">
-        <div class="card-header">
-          <i class="fa fa-list"></i> Contabilidad de costos  
+        <div class="card-header justify-content-around">
+          <i class="fa fa-list"></i> Productos
+		  <a href="/producto/crear/" class="btn btn-sm"> Nuevo </a>
         </div>
         <div class="card-body container">
-          <div class="row">
-		            <div class="col-4 col-offset-3">
-		             <a href="/manejoOrdenes/{{periodoId}}" class="btn btn-block btn-primary " style="margin-left: 100%;">Manejo de Ordenes</a>
-		            </div>
-		          </div>
-		          <div class="row">
-		            <div class="col-4 col-offset-3">
-		             <a href="/compraMP/{{periodoId}}" class="btn btn-block btn-primary " style="margin-top: 5px; margin-left: 100%;">Compra de Materia Prima</a>
-		            </div>
-		          </div>
-		          <div class="row">
-		            <div class="col-4 col-offset-3">
-		             <a href="/contratacion/{{periodoId}}" class="btn btn-block btn-primary " style="margin-top: 5px; margin-left: 100%;">Contratacion de Empleados</a>
-		            </div>
-		          </div>
-		          <div class="row">
-		            <div class="col-4 col-offset-3">
-		             <a href="/planillaGeneral/{{periodoId}}" class="btn btn-block btn-primary " style="margin-top: 5px; margin-left: 100%;">Planilla General</a>
-		            </div>
-		          </div>
-		          <div class="row">
-		            <div class="col-4 col-offset-3">
-		             <a href="/kardex/{{periodoId}}" class="btn btn-block btn-primary " style="margin-top: 5px; margin-left: 100%;">Manejo Kardex</a>
-		            </div>
-		          </div>
-		          <div class="row">
-		            <div class="col-4">
-		               <a href="/menu/{{periodoId}}" class="btn btn-block btn-secondary" style="margin-top: 5px; margin-left: 100%;">Regresar</a>
-		            </div>
-          		  </div>
+          <table class="table" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+              <th>Id</th>
+              <th>Descripción</th>
+            </thead>
+            <tbody>
+			 {% for p in productos %}
+              <tr>
+                <td>{{p.id}}</td>
+				<td>{{p.descripcion}}</td>
+                <!--td><a href="/producto/{{p.id}}">Ver Detalles</a></td-->
+              </tr>
+                {% endfor %}
+            </tbody>
+          </table>
         </div>
       </div>
-  	</div>
+    </div>
   <!-- /.content-wrapper-->
     <footer class="sticky-footer">
       <div class="container">
         <div class="text-center">
-          <small>Univerisdad de El Salvador. 2017</small>
+          <small>Univerisdad de El Salvador. 2018</small>
         </div>
       </div>
     </footer>

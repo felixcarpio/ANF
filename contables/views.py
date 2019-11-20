@@ -11,6 +11,7 @@ from django.db import connection
 from .models import Empleado,planillaGeneral,Pan,MateriaPrima,CIF,Final,Kardex,Entrada,Salida,Orden,materialUtilizado,productoTerminado,empleadosXorden
 import datetime
 import decimal
+from django.db.models import Q
 # Create your views here.
 # @login_required
 # def index(request):
@@ -542,8 +543,17 @@ def historialCuenta(request,periodoId):
 
 @login_required
 def catalogoCuenta(request):
-	cuentas = Cuenta.objects.all()
-	return render(request, 'contables/catalogoCuentas.html',{'cuenta':cuentas})
+	 #for cuenta1 in Cuenta.objects.annotate(codigo_length=Length('codigo')).filter((codigo__startswith = 1)  )
+	#cuentas = Cuenta.objects.all()
+	cuentasArr = []
+	cuentasArr.append(Cuenta.objects.filter(codigo__lt=9).order_by('codigo'))
+	cuentasArr.append(Cuenta.objects.filter(Q(codigo__gt=9) 			& Q(codigo__lt=999)).order_by('codigo'))
+	cuentasArr.append(Cuenta.objects.filter(Q(codigo__gt=999) 			& Q(codigo__lt=99999)).order_by('codigo'))
+	cuentasArr.append(Cuenta.objects.filter(Q(codigo__gt=99999) 		& Q(codigo__lt=9999999)).order_by('codigo'))
+	cuentasArr.append(Cuenta.objects.filter(Q(codigo__gt=9999999) 		& Q(codigo__lt=999999999)).order_by('codigo'))
+	cuentasArr.append(Cuenta.objects.filter(Q(codigo__gt=999999999) 	& Q(codigo__lt=99999999999)).order_by('codigo'))
+
+	return render(request, 'contables/catalogoCuentas.html',{'cuenta':cuentasArr})
 
 @login_required
 def agregarCuentaPadre(request):
@@ -648,11 +658,30 @@ def manejoOrden(request,periodoId):
 	return render (request, 'contables/manejoOrden.html',{'periodoId':periodoId,'orden':ordenes})
 
 @login_required
+def crearMateriaPrima(request,periodoId):
+	if request.method == 'POST':
+		MateriaPrima.objects.create(nombreMateriaPrima=request.POST['descripcion'],cantidad=0,precioUnitario=0.0)
+		mp = MateriaPrima.objects.filter(nombreMateriaPrima=request.POST['descripcion']).first();
+		Kardex.objects.create(materiaPrima = mp)
+		redirect('/compraMP/'+periodoId)
+	return render (request, 'contables/mp/crearProducto.html',{'periodoId':periodoId})
+	
+@login_required
 def compraMateriaPrima(request,periodoId):
 	mp=MateriaPrima.objects.all()
-
+	
 	if request.method == 'POST':
-		final=Final.objects.filter(kardex_id=request.POST.get('productoId'),es_Actual=True)
+		#Producto seleccionado
+		pr = MateriaPrima.objects.filter(id=request.POST['productoId']).first();
+		print("\n ID Materia seleccionada:\n"+str(pr.id)+"\n")
+		kdx = Kardex.objects.get(materiaPrima = pr)
+		print("\n ID kardex:\n"+str(pr.id)+"\n")
+		final=Final.objects.filter(kardex=kdx,es_Actual=True)
+		print("\n IDs Final:\n"+str(pr.id)+"\n")
+		for v in final:
+			print("\n ID : "+str(v.id)+"\n")
+		#######
+		
 		tamano=len(final)
 		cantidadAux=int(0)
 		costoUnitario=float(0.00)
@@ -660,7 +689,7 @@ def compraMateriaPrima(request,periodoId):
 		print("tamano:")
 		print(tamano)
 		if tamano != 0:
-			final=Final.objects.get(kardex_id=request.POST['productoId'],es_Actual=True)
+			final=Final.objects.get(kardex=kdx,es_Actual=True)
 			cantidadAux=int(final.cantidadFinal)
 			costoUnitario=float(final.costoUnitarioFinal)
 			costoTotal=float(cantidadAux)*float(costoUnitario)
@@ -668,7 +697,7 @@ def compraMateriaPrima(request,periodoId):
 			final.save()
 
 		entry=Entrada.objects.create(
-			kardex=Kardex.objects.get(materiaPrima=request.POST['productoId']),
+			kardex=kdx,
 			fechaEntrada= request.POST['fechaEntrada'],
 			costoUnitarioEntrada= request.POST['preciUnit'],
 			cantidadEntrada= request.POST['cantidadMP'],
@@ -739,7 +768,7 @@ def compraMateriaPrima(request,periodoId):
 
 		if tamano == 0:
 			Final.objects.create(
-				kardex=Kardex.objects.get(materiaPrima=request.POST['productoId']),
+				kardex=kdx, #kardex=Kardex.objects.get(materiaPrima=request.POST['productoId']),
 				fechaFinal= request.POST['fechaEntrada'],
 				costoUnitarioFinal= request.POST['preciUnit'],
 				cantidadFinal= request.POST['cantidadMP'],
@@ -748,7 +777,7 @@ def compraMateriaPrima(request,periodoId):
 				)
 		else:
 			Final.objects.create(
-				kardex=Kardex.objects.get(materiaPrima=request.POST['productoId']),
+				kardex=kdx,
 				fechaFinal= request.POST['fechaEntrada'],
 				costoUnitarioFinal= (float(request.POST['preciUnit'])*float(request.POST['cantidadMP'])+float(cantidadAux)*float(costoUnitario))/(int(request.POST['cantidadMP'])+int(cantidadAux)),
 				cantidadFinal= int(request.POST['cantidadMP'])+int(cantidadAux),

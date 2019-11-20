@@ -61,6 +61,8 @@ def createEstadoIniciales():
     if mpNull == None:
         for mprima in dic:
             MateriaPrima.objects.create(nombreMateriaPrima=mprima['nombre'],cantidad=mprima['cantidad'],precioUnitario=mprima['precio'])
+            mp = MateriaPrima.objects.filter(nombreMateriaPrima=mprima['nombre']).first();
+            Kardex.objects.create(materiaPrima = mp)
 
 
 
