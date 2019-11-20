@@ -84,17 +84,17 @@ DATABASES = {
     }
 }
 
-
-#DATABASES = {
+#
+# DATABASES = {
 #    'default': {
-#        'ENGINE': 'django.db.backends.mysql',
+#        'ENGINE': 'django.db.backends.postgresql',
 #        'NAME': 'contables_db',
-#        'USER': 'root',
-#        'PASSWORD':'',
+#        'USER': 'postgres',
+#        'PASSWORD':'administrador',
 #        'HOST': 'localhost',
-#        'PORT': 3306,
+#        'PORT': 5432,
 #    }
-#}
+# }
 
 
 # Password validation
