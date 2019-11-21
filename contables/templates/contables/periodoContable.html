@@ -4,12 +4,12 @@
   <title>Listado de periodos contables</title>
   {% endblock title %}
 {% block head%}
-<script type="text/javascript"> 
+<script type="text/javascript">
     $(document).ready(function() {
         $('#enviar').click(function(e){
             e.preventDefault();
                 var dataString = $('#form-control').serialize();
-            
+
 
             $.ajax({
                 type: "POST",
@@ -65,7 +65,7 @@
           </a>
         </li>
       </ul>
-      <ul class="navbar-nav ml-auto">    
+      <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="/settings/">
             <i class="fa fa-fw fa-edit"></i>Editar Perfil</a>
@@ -97,7 +97,7 @@
             {% endif %}
         </div>
         <div class="card-body">
-          <div class="table-responsive">          
+          <div class="table-responsive">
             <table class="table" id="dataTable" width="100%" cellspacing="0">
               <thead>
                 <tr>
@@ -147,7 +147,7 @@
     <footer class="sticky-footer">
       <div class="container">
         <div class="text-center">
-          <small>Univerisdad de El Salvador. 2017</small>
+          <small>Univerisdad de El Salvador. 2019</small>
         </div>
       </div>
     </footer>

@@ -11,9 +11,13 @@ from django.db import connection
 from .models import Empleado,planillaGeneral,Pan,MateriaPrima,CIF,Final,Kardex,Entrada,Salida,Orden,materialUtilizado,productoTerminado,empleadosXorden
 import datetime
 import decimal
+from django.db.models import Q
 
 def buscarCuenta(fecha1,fecha2,cuenta1,cuenta2):
+    cuentas2=[]
     cuentas = Cuenta.objects.all()
+    cuentas2.append(cuentas.filter(Q(codigo__gt=999999999)& Q(codigo__lt=99999999999)).order_by('codigo'))
+    print cuentas2
     nombreCuenta1 = cuentas.get(id=cuenta1)
     nombreCuenta2 = cuentas.get(id=cuenta2)
     print cuenta1
@@ -32,11 +36,14 @@ def buscarCuenta(fecha1,fecha2,cuenta1,cuenta2):
             if int(d.id_cuenta.id) == int(cuenta2):
                 cuentasT2.append(d)
     print 'aqui T1: {0} y aqui T2 {1}'.format(cuentasT1,cuentasT2)
-    context={'cuenta':cuentas,'cuentasT1':cuentasT1,'cuentasT2':cuentasT2,'c1':nombreCuenta1.nombre,'c2':nombreCuenta2.nombre}
+    context={'cuenta':cuentas2,'cuentasT1':cuentasT1,'cuentasT2':cuentasT2,'c1':nombreCuenta1.nombre,'c2':nombreCuenta2.nombre}
     return context
 
 def historialCuenta(request):
-    cuentas = Cuenta.objects.all()
+    cuentas2=[]
+    cuentas = Cuenta.objects.filter(Q(codigo__lt=99999)).order_by('codigo')
+    #cuentas2.append(Cuenta.objects.filter(Q(codigo__gt=9) & Q(codigo__lt=999)).order_by('codigo'))
+    print 'aqui cuentas:{0}'.format(cuentas)
     if request.method == 'POST':
         fechaI = request.POST['fecha1']
         fechaF = request.POST['fecha2']

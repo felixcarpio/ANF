@@ -88,9 +88,10 @@
         <li class="breadcrumb-item active">Balance contabilidadGeneral</li>
       </ol>
       <!-- Carta de contenido -->
+      <form id="printJS-form">
       <div class="card mb-3">
         <div class="card-header">
-          <i class="fa fa-list"></i> Balance general  
+          <i class="fa fa-list"></i> Balance general
         </div>
         <div class="card-body">
           <!-- Activos Corrientes -->
@@ -173,14 +174,16 @@
           </table>
         </div>
       </div>
+      </form>
+        <button type="button" name="button" onclick="printJS({ printable: 'printJS-form', type: 'html', header: 'BALANCE GENERAL' })" class="btn btn-danger">Generar PDF</button>
     </div>
-    
+
 
   <!-- /.content-wrapper-->
     <footer class="sticky-footer">
       <div class="container">
         <div class="text-center">
-          <small>Univerisdad de El Salvador. 2017</small>
+          <small>Univerisdad de El Salvador. 2019</small>
         </div>
       </div>
     </footer>

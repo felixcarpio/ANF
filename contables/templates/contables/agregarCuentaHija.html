@@ -5,13 +5,13 @@
 {% endblock title %}
 
 {% block head %}
-<script type="text/javascript"> 
+<script type="text/javascript">
     $(document).ready(function() {
         $('#enviar').click(function(e){
             e.preventDefault();
                 var dataString = $('#form-control').serialize();
 
-            
+
 
             $.ajax({
                 type: "POST",
@@ -23,7 +23,7 @@
             });
         });
     });
-</script>         
+</script>
 {% endblock head %}
 
 {% block content %}
@@ -68,7 +68,7 @@
           </a>
         </li>
       </ul>
-      <ul class="navbar-nav ml-auto">    
+      <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="/settings/">
             <i class="fa fa-fw fa-edit"></i>Editar Perfil</a>
@@ -108,17 +108,17 @@
               </div>
               <div class="col-4">
                 <input class="form-control" id="codigoCuenta" type="number" name="codigoCuenta" placeholder="{{cuenta.codigo}}+##">
-              </div>  
-             </div>   
-            {% endfor %}  
+              </div>
+             </div>
+            {% endfor %}
             <div class="form-group row">
               <div class="col-2">
                 <label for="nombreCuenta">Nombre de cuenta: </label>
               </div>
               <div class="col-4">
-               <input class="form-control" id="nombreCuenta" type="text" name="nombreCuenta">           
+               <input class="form-control" id="nombreCuenta" type="text" name="nombreCuenta">
               </div>
-            </div> 
+            </div>
             <div class="form-group row">
               <div class="col-2">
                 <label for="descripcionCuenta">Descripcion: </label>
@@ -126,7 +126,7 @@
               <div class="col-4">
                 <input class="form-control" id="descripcionCuenta" type="text" name="descripcionCuenta">
               </div>
-            </div> 
+            </div>
             <div class="form-group row">
               <div class="col-2">
                 <label for="idCuenta">Cuenta Padre: </label>
@@ -134,7 +134,7 @@
               <div class="col-4">
                 <input class="form-control" id="idCuenta" type="number" name="idCuenta" value="{{cuentaId}}" readonly>
               </div>
-            </div> 
+            </div>
             <div class="row">
               <input class="btn btn-primary" type="submit" name="enviar" id="enviar" value="Guardar" style="margin-left: 41%">
             </div>
@@ -146,7 +146,7 @@
     <footer class="sticky-footer">
       <div class="container">
         <div class="text-center">
-          <small>Univerisdad de El Salvador. 2017</small>
+          <small>Univerisdad de El Salvador. 2019</small>
         </div>
       </div>
     </footer>

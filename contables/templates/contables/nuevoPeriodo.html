@@ -2,13 +2,13 @@
 
 {% block head %}
 <title>Nuevo Periodo</title>
-<script type="text/javascript"> 
+<script type="text/javascript">
     $(document).ready(function() {
         $('#enviar').click(function(e){
             e.preventDefault();
                 var dataString = $('#form-control').serialize();
 
-            
+
 
             $.ajax({
                 type: "POST",
@@ -65,7 +65,7 @@
           </a>
         </li>
       </ul>
-      <ul class="navbar-nav ml-auto">    
+      <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="/settings/">
             <i class="fa fa-fw fa-edit"></i>Editar Perfil</a>
@@ -94,7 +94,7 @@
       <!--Ingresar Periodo contables -->
       <div class="card mb-3">
         <div class="card-header">
-          <i class="fa fa-plus"></i> Nuevo Periodo   
+          <i class="fa fa-plus"></i> Nuevo Periodo
         </div>
         <div class="card-body" id="body-nuevoPeriodo">
           <form id="form-control" method="POST">
@@ -114,21 +114,21 @@
                     <label for="fechafin">Ingresa la fecha de fin del periodo contable: </label>
                     <input type="date" id="fechafin" name="fechaFin" style="margin-left: 3%">
                   </div>
-                </div> 
+                </div>
               </div>
             </tbody>
           </table>
           <input type="submit" class="btn btn-primary" value="Enviar"  id="enviar" name="enviar" style="margin-left: 45%">
-        </form>        
+        </form>
         </div>
-   
+
       </div>
-    
+
     <!-- /.content-wrapper-->
     <footer class="sticky-footer">
       <div class="container">
         <div class="text-center">
-          <small>Univerisdad de El Salvador. 2017</small>
+          <small>Univerisdad de El Salvador. 2019</small>
         </div>
       </div>
     </footer>

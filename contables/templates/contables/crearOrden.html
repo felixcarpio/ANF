@@ -5,7 +5,7 @@
   {% endblock title %}
 
 {% block head%}
-<script type="text/javascript"> 
+<script type="text/javascript">
     $(document).ready(function() {
         $('#enviar').click(function(e){
             e.preventDefault();
@@ -65,7 +65,7 @@
             <i class="fa fa-fw fa-files-o"></i>
             <span class="nav-link-text">Catalogo de productos</span>
           </a>
-        </li>        
+        </li>
       </ul>
       <ul class="navbar-nav sidenav-toggler">
         <li class="nav-item">
@@ -129,7 +129,7 @@
                 <label>Tipo de pan: </label>
               </div>
               <div class="col-3">
-                <select style="width:100%" name="productoId" class="form-control"> 
+                <select style="width:100%" name="productoId" class="form-control">
                   {% for producto1 in tipoPan %}
                   <option value="{{producto1.id}}">{{producto1.descripcion}}</option>
                   {% endfor %}
@@ -172,7 +172,7 @@
             </div>
             <div class="row" style="margin-top: 5px">
               <div class="col-2">
-                fecha de creacion: 
+                fecha de creacion:
               </div>
               <div class="col-3">
                 <input type="date" name="fechaCreacio" class="form-control">
@@ -180,7 +180,7 @@
             </div>
             <div class="row" style="margin-top: 5px">
               <div class="col-2">
-                fecha de entrega: 
+                fecha de entrega:
               </div>
               <div class="col-3">
                 <input type="date" name="fechaEntrega" class="form-control">
@@ -197,7 +197,7 @@
     <footer class="sticky-footer">
       <div class="container">
         <div class="text-center">
-          <small>Univerisdad de El Salvador. 2017</small>
+          <small>Univerisdad de El Salvador. 2019</small>
         </div>
       </div>
     </footer>

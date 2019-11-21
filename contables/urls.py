@@ -1,7 +1,11 @@
 from django.conf.urls import url,include
+from django.conf.urls import handler400, handler403, handler404, handler500
 
 from . import views, kardexViews, orderViews,estadosFinancieros,historialCuenta,reportes_pdf
+from . import errors
 
+handler404 = errors.mi_error_404
+handler500 = errors.handler500
 
 urlpatterns = [
     url(r'^index/$', estadosFinancieros.index),
@@ -36,12 +40,12 @@ urlpatterns = [
     url(r'^pdf_cuentas/(?P<f1>[-\w]+)/(?P<f2>[-\w]+)/(?P<c1>\d+)/(?P<c2>\d+)/$', reportes_pdf.envio,name="pdf_hc"),
 
     #################    kardexViews #######################
-    url(r'^kardex/(?P<periodoId>\d+)/$', kardexViews.manejoKardex), 
+    url(r'^kardex/(?P<periodoId>\d+)/$', kardexViews.manejoKardex),
     url(r'^detallesKardex/(?P<materiaId>\d+)/(?P<periodoId>\d+)/$', kardexViews.detalleKardex),
     url(r'^producto/$', kardexViews.catalogoProducto),
     url(r'^producto/crear/$', kardexViews.crearProducto),
 
-    #################   orderViews #########################   
+    #################   orderViews #########################
     url(r'^crearOrden/(?P<periodoId>\d+)/$', orderViews.crearOrd),
     url(r'^modificarCIF/(?P<periodoId>\d+)/$', orderViews.modificarCif),
     url(r'^gestionarOrden/(?P<ordenId>\d+)/(?P<periodoId>\d+)/$', orderViews.gestionOrden),

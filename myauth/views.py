@@ -7,6 +7,9 @@ from myauth.admin import UserCreationForm
 from myauth.forms import UserChangeForm
 from django.contrib.auth import update_session_auth_hash, login, authenticate
 from django.contrib import messages
+from django.contrib.auth import logout
+from django.contrib.auth import views as auth_views
+from django.views import View
 # Create your views here.
 
 
@@ -65,3 +68,11 @@ def password(request):
     else:
         form = PasswordForm(request.user)
     return render(request, 'registration/password.html', {'form': form})
+
+# def my_logout(request):
+#     return auth_views.logout(request)
+
+class LogoutView(View):
+    def get(self,request):
+        response=logout(request)
+        return redirect(':login')

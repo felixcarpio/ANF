@@ -5,7 +5,7 @@
   {% endblock title %}
 
 {% block head%}
-<script type="text/javascript"> 
+<script type="text/javascript">
     $(document).ready(function() {
         $('#0enviar').click(function(e){
             e.preventDefault();
@@ -109,7 +109,7 @@
       <!-- Carta de contenido -->
       <div class="card mb-3">
         <div class="card-header justify-content-around">
-          <i class="fa fa-usd"></i> Compra de materia prima  
+          <i class="fa fa-usd"></i> Compra de materia prima
       <a href="/compraMP/{{periodoId}}/agregarMp" class="btn btn-sm"> Agregar nueva materia prima</a>
         </div>
         <div class="card-body container">
@@ -120,7 +120,7 @@
                 <label>Producto:</label>
               </div>
               <div class="col-3">
-                <select style="width:100%" name="productoId" class="form-control"> 
+                <select style="width:100%" name="productoId" class="form-control">
                   {% for producto1 in product %}
                   <option value="{{producto1.id}}">{{producto1.nombreMateriaPrima}}</option>
                   {% endfor %}
@@ -155,7 +155,7 @@
               <div class="col-2">
                 <label>Tipo de compra:</label>
               </div>
-              <div class="col-3"> 
+              <div class="col-3">
                 <select name="Compra" class="form-control">
                     <option value="Credito"> Credito
                     </option>
@@ -165,9 +165,9 @@
               </div>
             </div>
             <div class="row" style="margin-top: 5px;">
-              <input type="submit" name="enviar" id="enviar" value="Guardar" class="btn btn-primary" style="margin-left: 32.5%">  
+              <input type="submit" name="enviar" id="enviar" value="Guardar" class="btn btn-primary" style="margin-left: 32.5%">
             </div>
-          </form>              
+          </form>
             </div>
           </div>
         </div>
@@ -177,7 +177,7 @@
     <footer class="sticky-footer">
       <div class="container">
         <div class="text-center">
-          <small>Univerisdad de El Salvador. 2018</small>
+          <small>Univerisdad de El Salvador. 2019</small>
         </div>
       </div>
     </footer>
