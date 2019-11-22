@@ -7,7 +7,7 @@ from django.db import models
 class PeriodoContable(models.Model):
 	id_periodoContable = models.AutoField(primary_key= True)
 	fechaInicio = models.DateField('Fecha de inicio', help_text='Formato: AAAA/MM/DD', blank=False, null=False)
-	fechaFin = models.DateField('Fecha de Fin', help_text='Formato: AAAA/MM/DD', blank=False, null=False)
+	fechaFin = models.DateField('Fecha de fin', help_text='Formato: AAAA/MM/DD', blank=False, null=False)
 	estadoPeriodo= models.NullBooleanField(null = True);
 	# def __str__(self):
 	# 	return '{}{}'.format(self.fechaInicio,' hasta el ', self. fechaFin)
